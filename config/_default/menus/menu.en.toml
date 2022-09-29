@@ -1,0 +1,67 @@
+[[main]]
+  name = "首页"
+  url = ""
+  weight = -111
+
+[[main]]
+  name = "技术"
+  url = "categories/technology/"
+  weight = -110
+
+[[main]]
+  name = "读书"
+  url = "categories/article/"
+  weight = -109
+
+# Submenus are done this way: parent -> identifier
+[[main]]
+  name = "链接"
+  identifier = "Links"
+  weight = -108
+[[main]]
+  parent = "Links"
+  name = "领英"
+  url = "https://www.linkedin.com/"
+[[main]]
+  parent = "Links"
+  name = "推特"
+  url = "https://twitter.com/"
+
+[[main]]
+  name = "关于"
+  url = "about/"
+  weight = -107
+
+# social menu links
+
+# [[social]]
+#   name = "facebook"
+#   type = "social"
+#   weight = 1
+#   url = "https://github.com/#"
+# [[social]]
+#   name = "xing"
+#   weight = 2
+#   url = "https://twitter.com/#"
+# [[social]]
+#   name = "linkedin"
+#   weight = 3
+#   url = "https://www.linkedin.com/in/#"
+# [[social]]
+#   name = "rss"
+#   weight = 4
+#   url = "index.xml"
+
+# other supported social links
+# name = "youtube"
+# url = "https://www.youtube.com/#"
+# name = "facebook"
+# url = "https://facebook.com/#"
+# name = "instagram"
+# url = "https://instagram.com/#"
+# name = "stackoverflow"
+# url = "https://stackoverflow.com/#"
+# name = "gitlab"
+# url = "https://gitlab.com/#"
+# name = "discord"
+# url = "https://discord.gg/#"

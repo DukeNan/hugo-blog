@@ -1,0 +1,17 @@
+
+
+[en]
+  title = "Shaun's blog"
+  LanguageName = "English"
+  weight = 1
+
+[pt]
+  title = "Claridade" # just for the sake of showing this is possible
+  LanguageName = "Português"
+  weight = 3
+
+
+[zh-CN]
+  title = "Claridade" # just for the sake of showing this is possible
+  LanguageName = "简体中文"
+  weight = 2
