@@ -4,7 +4,7 @@ date: 2022-09-29T17:47:16+08:00
 description: "MVCC原理详解"
 author: "shaun"
 featured: true
-draft: false
+draft: true
 toc: false
 # menu: main
 usePageBundles: false
