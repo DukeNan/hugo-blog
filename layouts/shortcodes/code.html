@@ -1,0 +1,15 @@
+{{- $file := .Get "file" -}}
+{{- $lang := .Get "lang" | default "go" -}}
+{{- $filename := path.Base $file -}}
+
+{{- if not (fileExists $file) -}}
+  {{ errorf "Code file not found: %s" $file }}
+{{- end -}}
+
+<div class="clarity-code-block">
+  <div class="clarity-code-header">
+    <span class="clarity-code-filename">{{ $filename }}</span>
+  </div>
+
+  {{ highlight (readFile $file) $lang "" }}
+</div>
