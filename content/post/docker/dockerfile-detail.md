@@ -1,7 +1,7 @@
 ---
 title: "Dockerfile详解"
 date: 2022-08-28T21:54:06+08:00
-description: "Article description."
+description: "Dockerfile详解"
 author: "shaun"
 featured: true
 draft: false
@@ -41,7 +41,7 @@ docker build命令用于从Dockerfile构建映像。可以在docker build命令�
 ```docker
 FROM <image>
 FROM <image>:<tag>
-FROM <image>:<digest> 
+FROM <image>:<digest>
 # 三种写法，其中<tag>和<digest> 是可选项，如果没有选择，那么默认值为latest
 ```
 #### MAINTAINER
@@ -98,7 +98,7 @@ ADD ["<src>",... "<dest>"]
 
 示例:
 ```docker
-ADD test relativeDir/ 
+ADD test relativeDir/
 ADD test /relativeDir
 ADD http://example.com/foobar /
 ```
@@ -191,7 +191,7 @@ CMD command param1 param2
 
 举例说明两种写法：
 ```docker
-CMD [ "sh", "-c", "echo $HOME" 
+CMD [ "sh", "-c", "echo $HOME"
 CMD [ "echo", "$HOME" ]
 ```
 {{% notice tip "注意📢" %}}
@@ -211,7 +211,7 @@ CMD是容器启动时执行的命令，在构件时并不运行，构件时紧�
 
 语法如下：
 ```docker
-ENTRYPOINT ["executable", "param1", "param2"]  
+ENTRYPOINT ["executable", "param1", "param2"]
 ENTRYPOINT command param1 param2
 ```
 如果从上到下看到这里的话，那么你应该对这两种语法很熟悉啦。
@@ -389,7 +389,7 @@ CMD后边的命令的返回值决定了本次健康检查是否成功，具体�
 
 例子：
 ```docker
-HEALTHCHECK --interval=5m --timeout=3s 
+HEALTHCHECK --interval=5m --timeout=3s
 CMD curl -f http://localhost/ || exit 1
 ```
 健康检查命令是：`curl -f http://localhost/ || exit 1`
