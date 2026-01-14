@@ -1,13 +1,104 @@
 {{- if .Site.Params.enableMermaid -}}
 <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-    mermaid.initialize({
-        startOnLoad: true,
-        theme: 'default',
-        securityLevel: 'loose',
-        themeVariables: {
-            fontFamily: 'inherit',
-            fontSize: '16px'
+
+    // 检测当前主题模式
+    function getCurrentTheme() {
+        const htmlElement = document.documentElement;
+        const dataMode = htmlElement.getAttribute('data-mode');
+        return dataMode === 'dim' ? 'dark' : 'default';
+    }
+
+    // 保存所有mermaid元素的原始内容
+    function saveMermaidSources() {
+        const mermaidElements = document.querySelectorAll('.mermaid');
+        mermaidElements.forEach(element => {
+            if (!element.hasAttribute('data-mermaid-source')) {
+                // 保存原始内容（在mermaid渲染之前）
+                const source = element.textContent.trim();
+                if (source) {
+                    element.setAttribute('data-mermaid-source', source);
+                }
+            }
+        });
+    }
+
+    // 初始化mermaid配置
+    function initializeMermaid() {
+        // 先保存原始内容
+        saveMermaidSources();
+        const currentTheme = getCurrentTheme();
+        mermaid.initialize({
+            startOnLoad: true,
+            theme: currentTheme,
+            securityLevel: 'loose',
+            themeVariables: {
+                fontFamily: 'inherit',
+                fontSize: '16px'
+            }
+        });
+    }
+
+    // 更新mermaid主题
+    function updateMermaidTheme() {
+        const currentTheme = getCurrentTheme();
+        // 更新配置
+        mermaid.initialize({
+            startOnLoad: false,
+            theme: currentTheme,
+            securityLevel: 'loose',
+            themeVariables: {
+                fontFamily: 'inherit',
+                fontSize: '16px'
+            }
+        });
+        // 重新渲染所有mermaid图表
+        const mermaidElements = document.querySelectorAll('.mermaid');
+        mermaidElements.forEach(element => {
+            // 恢复原始内容
+            const source = element.getAttribute('data-mermaid-source');
+            if (source) {
+                element.innerHTML = source;
+                // 移除已处理标记，以便重新渲染
+                element.removeAttribute('data-processed');
+            }
+        });
+        // 重新运行mermaid渲染
+        if (mermaidElements.length > 0) {
+            mermaid.run({
+                nodes: mermaidElements
+            });
+        }
+    }
+
+    // 初始化（在DOM加载完成后）
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initializeMermaid);
+    } else {
+        initializeMermaid();
+    }
+
+    // 监听主题切换
+    // 使用MutationObserver监听data-mode属性的变化
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.type === 'attributes' && mutation.attributeName === 'data-mode') {
+                // 延迟更新，确保主题切换动画完成
+                setTimeout(updateMermaidTheme, 100);
+            }
+        });
+    });
+
+    // 开始观察html元素的data-mode属性
+    observer.observe(document.documentElement, {
+        attributes: true,
+        attributeFilter: ['data-mode']
+    });
+
+    // 也监听点击事件，作为备用方案
+    document.addEventListener('click', function(event) {
+        if (event.target && event.target.classList.contains('color_choice')) {
+            setTimeout(updateMermaidTheme, 500);
         }
     });
 </script>

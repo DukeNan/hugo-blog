@@ -1,0 +1,41 @@
+// Mermaid diagram styles
+// 确保mermaid图表与网站主题一致，并具有足够的对比度
+
+.mermaid
+  border-radius: 0.5rem
+  position: relative
+  padding: 1rem
+  margin: 1.5rem auto
+  overflow-x: auto
+  overflow-y: hidden
+  // 确保SVG内容居中
+  svg
+    display: block
+    margin: 0 auto
+    max-width: 100%
+    height: auto
+
+// Light模式下的样式（默认）
+html:not([data-mode="dim"]) .mermaid
+  background: var(--light)
+  border: 1px solid rgba(0, 0, 0, 0.12)
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08)
+
+// Dark模式下的样式
+html[data-mode="dim"] .mermaid
+  background: var(--code-bg)
+  border: 1px solid rgba(255, 255, 255, 0.1)
+  box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3)
+
+// 响应式设计
+@media screen and (max-width: 768px)
+  .mermaid
+    padding: 0.75rem
+    margin: 1rem auto
+
+// 支持系统偏好设置（当没有明确设置data-mode时）
+@media (prefers-color-scheme: dark)
+  html:not([data-mode="lit"]) .mermaid
+    background: var(--code-bg)
+    border: 1px solid rgba(255, 255, 255, 0.1)
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3)
