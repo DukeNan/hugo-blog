@@ -18,3 +18,40 @@ s.yaml
 
 # CI/CD
 deploy.sh
+
+# AI Tools
+# Claude Code
+.claude/
+
+# Cursor AI
+.cursorrules
+.cursor/
+
+# Copilot
+.copilot/
+
+# ChatGPT / OpenAI
+.chatgpt/
+
+# Continue AI
+.continue/
+
+# Codeium
+.codeium/
+
+# Tabby
+.tabby/
+
+# Sourcegraph Cody
+.cody/
+
+# JetBrains AI
+.idea/ai/
+
+# AWS Q
+.amazonq/
+
+# General AI/LLM configuration
+*.ai-history
+*.ai-cache
+.ai-cache/
