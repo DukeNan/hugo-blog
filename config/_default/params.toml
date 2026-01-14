@@ -63,6 +63,9 @@ codeLineNumbers = false
 # enable math notation. Switch to `true` to enable mathjax in your site.
 enableMathNotation = false
 
+# enable mermaid diagrams. Switch to `true` to enable mermaid diagram rendering.
+enableMermaid = true
+
 # directory(s) where your articles are located
 mainSections = ["post"] # see config details here https://gohugo.io/functions/where/#mainsections
 
