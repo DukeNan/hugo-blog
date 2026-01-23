@@ -55,3 +55,7 @@ deploy.sh
 *.ai-history
 *.ai-cache
 .ai-cache/
+
+# Logs
+logs/
+*.log
