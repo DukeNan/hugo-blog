@@ -166,26 +166,7 @@ UPDATE order_table SET status=1;  -- ⏰ 等待会话 A 释放锁
 
 #### MDL 死锁案例
 
-```mermaid
-sequenceDiagram
-    participant T1 as 事务1
-    participant T2 as 事务2
-    participant T3 as 事务3
-    participant Database
-
-    T1->>+Database: BEGIN
-    T1->>Database: SELECT * FROM t (获取 MDL 读锁)
-    Note over T1: 事务未提交<br/>持有 MDL 读锁
-
-    T2->>Database: ALTER TABLE t... (尝试获取 MDL 写锁)
-    Note over T2: 等待 T1 释放 MDL 读锁
-
-    T3->>Database: SELECT * FROM t (尝试获取 MDL 读锁)
-    Note over T3: 被 T2 阻塞<br/>排队等待
-
-    T1->>-Database: COMMIT (释放 MDL 读锁)
-    Note over T2: 获取到 MDL 写锁
-```
+![MDL 锁时序图](/images/mdl-lock-sequence.png)
 
 {{% notice note "注意📢" %}}
 长事务会持有 MDL 锁很久，在执行 DDL 语句之前，务必确认没有长时间运行的事务。可以使用 `SHOW PROCESSLIST` 查看当前运行的事务。
