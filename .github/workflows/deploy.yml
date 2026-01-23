@@ -21,6 +21,6 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           # 实际在服务器上执行的命令
           script: |
-            cd /data/wwwroot/hugo-blog || exit 1
+            cd /data/wwwroot/hugo-blog || exit
             ./deploy.sh
             echo "Deployment completed successfully"
