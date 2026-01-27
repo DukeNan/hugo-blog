@@ -89,13 +89,13 @@ B-Tree 是一棵**多路平衡查找树**，其结构特点如下：
 
 ### B-Tree 节点结构
 
-```c
-struct BTreeNode {
-    int num_keys;              // 当前键值数量
-    int is_leaf;               // 是否为叶子节点
-    int keys[2*m - 1];         // 键值数组
-    struct BTreeNode* children[2*m];  // 子节点指针数组
-};
+```python
+class BTreeNode:
+    def __init__(self, m: int, is_leaf: bool = False):
+        self.num_keys: int = 0              # 当前键值数量
+        self.is_leaf: bool = is_leaf        # 是否为叶子节点
+        self.keys: List[int] = [0] * (2 * m - 1)      # 键值数组
+        self.children: List['BTreeNode'] = [None] * (2 * m)  # 子节点指针数组
 ```
 
 ### B-Tree 查找操作
@@ -189,22 +189,22 @@ B+Tree 是 B-Tree 的改进版本，其结构特点如下：
 
 ### B+Tree 节点结构
 
-```c
-// 内部节点（非叶子节点）
-struct BPlusTreeInternalNode {
-    int num_keys;                    // 键值数量
-    int keys[m];                     // 键值数组
-    struct BPlusTreeNode* children[m+1];  // 子节点指针
-};
+```python
+# 内部节点（非叶子节点）
+class BPlusTreeInternalNode:
+    def __init__(self, m: int):
+        self.num_keys: int = 0              # 键值数量
+        self.keys: List[int] = [0] * m     # 键值数组
+        self.children: List[BPlusTreeNode] = [None] * (m + 1)  # 子节点指针
 
-// 叶子节点
-struct BPlusTreeLeafNode {
-    int num_keys;                    // 键值数量
-    int keys[m];                     // 键值数组
-    void* data[m];                   // 数据指针（指向实际数据）
-    struct BPlusTreeLeafNode* prev;  // 前驱节点指针
-    struct BPlusTreeLeafNode* next;  // 后继节点指针
-};
+# 叶子节点
+class BPlusTreeLeafNode:
+    def __init__(self, m: int):
+        self.num_keys: int = 0              # 键值数量
+        self.keys: List[int] = [0] * m     # 键值数组
+        self.data: List[Any] = [None] * m  # 数据指针（指向实际数据）
+        self.prev: BPlusTreeLeafNode = None  # 前驱节点指针
+        self.next: BPlusTreeLeafNode = None  # 后继节点指针
 ```
 
 ### B+Tree 查找操作
