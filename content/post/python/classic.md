@@ -13,7 +13,7 @@ figurePositionShow: true
 categories:
   - Technology
 tags:
-  - pandas
+  - python
 ---
 `Pandas`是一个开源的，BSD许可的库，为[Python](https://www.python.org/) (opens new window)编程语言提供高性能，易于使用的数据结构和数据分析工具。
 <!--more-->
@@ -24,9 +24,9 @@ tags:
 ### loc && iloc
 
 #### 区别
-- loc: 通过行标签索引行数据 
-- iloc: 通过行号索引行数据 
-- ix: 通过行标签或者行号索引行数据（基于loc和iloc 的混合） 
+- loc: 通过行标签索引行数据
+- iloc: 通过行号索引行数据
+- ix: 通过行标签或者行号索引行数据（基于loc和iloc 的混合）
 
 {{% notice tip "注意📢" %}}
 iloc是按照行数取值，而loc按着index名取值
@@ -39,7 +39,7 @@ import numpy as np
 import pandas as pd
 from pandas import *
 from numpy import *
- 
+
 data=DataFrame(np.arange(16).reshape(4,4),index=list("ABCD"),columns=list("wxyz"))
 print(data)
 #    w   x   y   z
@@ -47,7 +47,7 @@ print(data)
 #B   4   5   6   7
 #C   8   9  10  11
 #D  12  13  14  15
- 
+
 #loc
 #行的选取
 print(data.loc["A"])
@@ -58,19 +58,19 @@ print(type(data.loc["A"]))
 #z    3
 #Name: A, dtype: int32
 #<class 'pandas.core.series.Series'>
- 
+
 print(data.loc[["A"]])
 print(type(data.loc[["A"]]))
 #   w  x  y  z
 #A  0  1  2  3
 #<class 'pandas.core.frame.DataFrame'>
 #综上，[]返回Series,[[]]返回DataFrame
- 
+
 print(data.loc["A","w"])
 print(type(data.loc["A","w"]))
 #0
 #<class 'numpy.int32'>
- 
+
 print(data.loc[:,"w"])
 print(type(data.loc[:,"w"]))
 #A     0
@@ -79,7 +79,7 @@ print(type(data.loc[:,"w"]))
 #D    12
 #Name: w, dtype: int32
 #<class 'pandas.core.series.Series'>
- 
+
 print(data.loc["A":"C"])
 print(type(data.loc["A":"C"]))
 #   w  x   y   z
@@ -87,7 +87,7 @@ print(type(data.loc["A":"C"]))
 #B  4  5   6   7
 #C  8  9  10  11
 #<class 'pandas.core.frame.DataFrame'>
- 
+
 print(data.loc["A":"C","w":"y"])
 print(type(data.loc["A":"C","w":"y"]))
 #   w  x   y
@@ -95,14 +95,14 @@ print(type(data.loc["A":"C","w":"y"]))
 #B  4  5   6
 #C  8  9  10
 #<class 'pandas.core.frame.DataFrame'>
- 
+
 print(data.loc[["A","C"],["w","y"]])
 print(type(data.loc[["A","C"],["w","y"]]))
 #   w   y
 #A  0   2
 #C  8  10
 #<class 'pandas.core.frame.DataFrame'>
- 
+
 print(data.loc[:,["w","y"]])
 print(type(data.loc[:,["w","y"]]))
 #    w   y
@@ -111,7 +111,7 @@ print(type(data.loc[:,["w","y"]]))
 #C   8  10
 #D  12  14
 #<class 'pandas.core.frame.DataFrame'>
- 
+
 #列的选取
 print(data["w"])#等同于print(data.loc[:,"w"])
 #A     0
@@ -126,7 +126,7 @@ print(data.loc[:,"w"])
 #D    12
 #Name: w, dtype: int32
 print(data["w"].equals(data.loc[:,"w"]))#True
- 
+
 #根据特殊条件选取行列
 print(data["w"]>5)
 #A    False
@@ -134,7 +134,7 @@ print(data["w"]>5)
 #C     True
 #D     True
 #Name: w, dtype: bool
- 
+
 print(data.loc[data["w"]>5])
 #    w   x   y   z
 #C   8   9  10  11
@@ -162,7 +162,7 @@ print(type(data.loc[lambda data:data["w"]==0]))
 #   w  x  y  z
 #A  0  1  2  3
 #<class 'pandas.core.frame.DataFrame'>
- 
+
 #loc赋值
 print(data)
 #    w   x   y   z
@@ -177,7 +177,7 @@ print(data)
 #B    4    5   6   7
 #C  999  999  10  11
 #D   12   13  14  15
- 
+
 ```
 
 ### iloc
@@ -190,7 +190,7 @@ print(data)
 #B   4   5   6   7
 #C   8   9  10  11
 #D  12  13  14  15
- 
+
 print(data.iloc[0])
 print(type(data.iloc[0]))
 #w    0
@@ -200,7 +200,7 @@ print(type(data.iloc[0]))
 #Name: A, dtype: int32
 #<class 'pandas.core.series.Series'>
 #print(data.iloc["A"])报错
- 
+
 #print(data.loc[0])报错
 print(data.loc[["A"]])
 print(type(data.loc["A"]))
