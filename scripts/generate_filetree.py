@@ -5,9 +5,14 @@
 """
 
 import os
+import sys
+import io
 import yaml
 from pathlib import Path
 from typing import List, Dict, Tuple
+
+# 确保标准输出使用 UTF-8 编码，避免终端编码问题
+sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
 
 # 文件扩展名到语言类型的映射
 LANG_MAP = {
