@@ -59,3 +59,6 @@ deploy.sh
 # Logs
 logs/
 *.log
+
+# Data
+data/
