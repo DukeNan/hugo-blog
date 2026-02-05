@@ -108,11 +108,19 @@ html[data-mode="dim"] .mermaid
   transition: all 0.3s ease
 
 .filetree-code-wrapper
-  padding: 0 1rem 1rem 1rem
+  padding: 1rem 1rem 1rem 1rem
+  position: relative
 
   .highlight
     margin: 0
     border-radius: 0.25rem
+    position: relative
+    overflow: visible
+
+    // 确保代码工具栏按钮不被遮挡
+    pre
+      position: relative
+      overflow: auto
 
 .filetree-error
   padding: 1rem
@@ -201,7 +209,7 @@ html[data-mode="dim"]
     font-size: 0.85rem
 
   .filetree-code-wrapper
-    padding: 0 0.75rem 0.75rem 0.75rem
+    padding: 0.75rem 0.75rem 0.75rem 0.75rem
 
 // 支持系统偏好设置（当没有明确设置data-mode时）
 @media (prefers-color-scheme: dark)
