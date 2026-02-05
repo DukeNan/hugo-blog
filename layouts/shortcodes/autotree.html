@@ -1,0 +1,138 @@
+{{- $dir := .Get "dir" | default "" -}}
+
+{{- if eq $dir "" -}}
+  <div class="filetree-error">
+    <p>⚠️ 错误: 必须指定 <code>dir</code> 参数</p>
+    <p class="hint">使用方法: <code>{{ printf "{{< autotree dir=\"scripts\" >}}" }}</code></p>
+  </div>
+  {{- return -}}
+{{- end -}}
+
+{{- /* 从 data/filetrees/ 读取数据 */ -}}
+{{- $data := index .Site.Data.filetrees $dir -}}
+
+{{- if not $data -}}
+  <div class="filetree-error">
+    <p>⚠️ 错误: 找不到目录 <code>{{ $dir }}</code> 的数据</p>
+    <p class="hint">请确保已运行 <code>python3 scripts/generate_filetree.py</code></p>
+    <p class="hint">可用的目录:</p>
+    <ul>
+      {{- range $key, $value := .Site.Data.filetrees -}}
+        <li><code>{{ $key }}</code></li>
+      {{- end -}}
+    </ul>
+  </div>
+  {{- return -}}
+{{- end -}}
+
+<div class="filetree-container">
+  {{- /* 显示树形结构 */ -}}
+  <div class="filetree-header">
+    <pre class="filetree-structure">{{ $data.tree }}</pre>
+  </div>
+
+  {{- /* 显示可点击的文件列表 */ -}}
+  <div class="filetree-files">
+    {{- range $index, $fileInfo := $data.files -}}
+      {{- $filePath := $fileInfo.path -}}
+      {{- $fileName := $fileInfo.name -}}
+      {{- $lang := $fileInfo.lang -}}
+
+      <div class="filetree-file" data-filename="{{ $fileName }}">
+        <button class="filetree-toggle" aria-expanded="false" aria-controls="autotree-content-{{ $index }}">
+          <span class="filetree-icon">▶</span>
+          <span class="filetree-filename">{{ $fileName }}</span>
+        </button>
+        <div class="filetree-content" id="autotree-content-{{ $index }}" style="display: none;">
+          {{- /* 尝试读取文件 */ -}}
+          {{- $fileContent := "" -}}
+          {{- $fileExists := false -}}
+
+          {{- /* 尝试从assets读取 */ -}}
+          {{- $assetsPath := printf "assets/%s" $filePath -}}
+          {{- if fileExists $assetsPath -}}
+            {{- $fileContent = readFile $assetsPath -}}
+            {{- $fileExists = true -}}
+          {{- else -}}
+            {{- /* 尝试从static读取 */ -}}
+            {{- $staticPath := printf "static/%s" $filePath -}}
+            {{- if fileExists $staticPath -}}
+              {{- $fileContent = readFile $staticPath -}}
+              {{- $fileExists = true -}}
+            {{- else -}}
+              {{- /* 尝试直接读取 */ -}}
+              {{- if fileExists $filePath -}}
+                {{- $fileContent = readFile $filePath -}}
+                {{- $fileExists = true -}}
+              {{- end -}}
+            {{- end -}}
+          {{- end -}}
+
+          {{- if $fileExists -}}
+            <div class="filetree-code-wrapper">
+              {{ highlight $fileContent $lang "" }}
+            </div>
+          {{- else -}}
+            <div class="filetree-error">
+              <p>⚠️ 文件未找到: <code>{{ $filePath }}</code></p>
+              <p class="hint">请确保文件存在于以下位置之一：</p>
+              <ul>
+                <li><code>assets/{{ $filePath }}</code></li>
+                <li><code>static/{{ $filePath }}</code></li>
+              </ul>
+            </div>
+          {{- end -}}
+        </div>
+      </div>
+    {{- end -}}
+  </div>
+</div>
+
+{{- /* JavaScript交互逻辑 */ -}}
+<script>
+(function() {
+  'use strict';
+
+  // 初始化文件树交互
+  function initAutoTree() {
+    const toggleButtons = document.querySelectorAll('.filetree-toggle');
+
+    toggleButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const content = this.nextElementSibling;
+        const icon = this.querySelector('.filetree-icon');
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+
+        if (isExpanded) {
+          // 收起
+          content.style.display = 'none';
+          icon.textContent = '▶';
+          this.setAttribute('aria-expanded', 'false');
+          this.classList.remove('expanded');
+        } else {
+          // 展开
+          content.style.display = 'block';
+          icon.textContent = '▼';
+          this.setAttribute('aria-expanded', 'true');
+          this.classList.add('expanded');
+        }
+      });
+
+      // 添加键盘支持
+      button.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          this.click();
+        }
+      });
+    });
+  }
+
+  // 页面加载完成后初始化
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAutoTree);
+  } else {
+    initAutoTree();
+  }
+})();
+</script>

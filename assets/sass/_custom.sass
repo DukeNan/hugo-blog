@@ -39,3 +39,194 @@ html[data-mode="dim"] .mermaid
     background: var(--code-bg)
     border: 1px solid rgba(255, 255, 255, 0.1)
     box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3)
+
+// Auto File Tree Shortcode styles
+// 自动文件树展示组件样式（autotree shortcode）
+
+.filetree-container
+  border-radius: 0.5rem
+  margin: 1.5rem auto
+  overflow: hidden
+
+.filetree-header
+  border-radius: 0.5rem 0.5rem 0 0
+  overflow-x: auto
+
+.filetree-structure
+  margin: 0
+  padding: 1rem
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace
+  font-size: 0.875rem
+  line-height: 1.5
+  white-space: pre
+  overflow-x: auto
+
+.filetree-files
+  margin-top: 0.5rem
+
+.filetree-file
+  margin-bottom: 0.25rem
+  border-radius: 0.25rem
+  overflow: hidden
+
+.filetree-toggle
+  width: 100%
+  padding: 0.75rem 1rem
+  border: none
+  background: none
+  text-align: left
+  cursor: pointer
+  display: flex
+  align-items: center
+  gap: 0.5rem
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace
+  font-size: 0.9rem
+  transition: all 0.2s ease
+  border-radius: 0.25rem
+
+  &:hover
+    transform: translateX(2px)
+
+  &:focus
+    outline: 2px solid currentColor
+    outline-offset: 2px
+
+.filetree-icon
+  flex-shrink: 0
+  font-size: 0.75rem
+  transition: transform 0.2s ease
+  display: inline-block
+
+.filetree-toggle.expanded .filetree-icon
+  transform: rotate(90deg)
+
+.filetree-filename
+  font-weight: 500
+
+.filetree-content
+  overflow: hidden
+  transition: all 0.3s ease
+
+.filetree-code-wrapper
+  padding: 0 1rem 1rem 1rem
+
+  .highlight
+    margin: 0
+    border-radius: 0.25rem
+
+.filetree-error
+  padding: 1rem
+  border-radius: 0.25rem
+  margin: 0.5rem 1rem 1rem 1rem
+
+  p
+    margin: 0.5rem 0
+
+  .hint
+    font-size: 0.875rem
+    opacity: 0.8
+
+  ul
+    margin: 0.5rem 0
+    padding-left: 1.5rem
+    font-size: 0.875rem
+
+  code
+    padding: 0.125rem 0.25rem
+    border-radius: 0.125rem
+    font-size: 0.875rem
+
+// Light模式下的样式
+html:not([data-mode="dim"])
+  .filetree-header
+    background: var(--light)
+    border: 1px solid rgba(0, 0, 0, 0.12)
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.08)
+
+  .filetree-structure
+    background: rgba(0, 0, 0, 0.02)
+    color: #333
+
+  .filetree-toggle
+    background: rgba(0, 0, 0, 0.02)
+    color: #333
+
+    &:hover
+      background: rgba(0, 0, 0, 0.05)
+
+  .filetree-error
+    background: #fff3cd
+    border: 1px solid #ffc107
+    color: #856404
+
+    code
+      background: rgba(0, 0, 0, 0.1)
+      color: #856404
+
+// Dark模式下的样式
+html[data-mode="dim"]
+  .filetree-header
+    background: var(--code-bg)
+    border: 1px solid rgba(255, 255, 255, 0.1)
+    box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3)
+
+  .filetree-structure
+    background: rgba(255, 255, 255, 0.05)
+    color: #e0e0e0
+
+  .filetree-toggle
+    background: rgba(255, 255, 255, 0.05)
+    color: #e0e0e0
+
+    &:hover
+      background: rgba(255, 255, 255, 0.1)
+
+  .filetree-error
+    background: rgba(255, 193, 7, 0.15)
+    border: 1px solid rgba(255, 193, 7, 0.3)
+    color: #ffc107
+
+    code
+      background: rgba(255, 255, 255, 0.1)
+      color: #ffc107
+
+// 响应式设计
+@media screen and (max-width: 768px)
+  .filetree-structure
+    padding: 0.75rem
+    font-size: 0.8rem
+
+  .filetree-toggle
+    padding: 0.6rem 0.75rem
+    font-size: 0.85rem
+
+  .filetree-code-wrapper
+    padding: 0 0.75rem 0.75rem 0.75rem
+
+// 支持系统偏好设置（当没有明确设置data-mode时）
+@media (prefers-color-scheme: dark)
+  html:not([data-mode="lit"])
+    .filetree-header
+      background: var(--code-bg)
+      border: 1px solid rgba(255, 255, 255, 0.1)
+      box-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.3)
+
+    .filetree-structure
+      background: rgba(255, 255, 255, 0.05)
+      color: #e0e0e0
+
+    .filetree-toggle
+      background: rgba(255, 255, 255, 0.05)
+      color: #e0e0e0
+
+      &:hover
+        background: rgba(255, 255, 255, 0.1)
+
+    .filetree-error
+      background: rgba(255, 193, 7, 0.15)
+      border: 1px solid rgba(255, 193, 7, 0.3)
+      color: #ffc107
+
+      code
+        background: rgba(255, 255, 255, 0.1)
+        color: #ffc107
