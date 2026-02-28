@@ -18,6 +18,9 @@ codeLineNumbers: false # Override global value for showing of line numbers withi
 figurePositionShow: true # Override global value for showing the figure label.
 categories:
   - article
+tags:
+  - philosophy
+  - self-improvement
 # comment: false # Disable comment if false.
 ---
 
