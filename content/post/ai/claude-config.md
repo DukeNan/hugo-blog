@@ -11,6 +11,7 @@ categories:
   - Technology
 tags:
   - AI
+  - Claude
 ---
 
 很多团队用 Claude Code，会卡在一个尴尬区间：
